@@ -1,0 +1,4 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {validateExpense} from './validation';
+test('recibo permite proyecto vacío y no necesita número de factura',()=>{assert.deepEqual(validateExpense({date:'2026-10-30',concept:'Movilidad a obra',amount:'40',project:'',reference:'',place:'Lima',beneficiary:'IESCO S.A.C'},'recibo'),{})});
+test('campos vacíos devuelven todos los avisos y factura exige su número',()=>{const issues=validateExpense({date:'',concept:'',amount:'',reference:'',place:'',beneficiary:''},'factura');for(const key of ['date','concept','amount','reference','place','beneficiary'])assert.ok(issues[key]);});
+test('límite de S/ 400 y valores no numéricos',()=>{assert.ok(validateExpense({date:'2026-10-30',concept:'Movilidad',amount:'401'},'recibo').amount);assert.ok(validateExpense({date:'2026-10-30',concept:'Movilidad',amount:'abc'},'recibo').amount)});
