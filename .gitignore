@@ -3,3 +3,4 @@ dist/
 .env
 backend/data/
 backend/uploads/
+transferencia-local/
